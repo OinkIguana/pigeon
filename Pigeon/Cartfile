@@ -1,0 +1,4 @@
+github "granoff/Strongbox"
+github "ReactiveX/RxSwift"
+github "krzyzanowskim/CryptoSwift"
+github "aschuch/QRCode"
