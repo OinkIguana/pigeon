@@ -24,6 +24,12 @@
 		32AD7FD321CAA4FA005B75D0 /* EncryptionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FD221CAA4FA005B75D0 /* EncryptionKey.swift */; };
 		32AD7FD521CAAB50005B75D0 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FD421CAAB50005B75D0 /* Storage.swift */; };
 		32AD7FD821CAAE63005B75D0 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AD7FD721CAAE63005B75D0 /* QRCode.framework */; };
+		32AD7FDA21CB00CD005B75D0 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FD921CB00CD005B75D0 /* Profile.swift */; };
+		32AD7FDC21CB0E83005B75D0 /* Signed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FDB21CB0E83005B75D0 /* Signed.swift */; };
+		32AD7FDE21CB0F77005B75D0 /* Encrypted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FDD21CB0F76005B75D0 /* Encrypted.swift */; };
+		32AD7FE221CB10FF005B75D0 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FE121CB10FF005B75D0 /* KeyPair.swift */; };
+		32AD7FE521CB1764005B75D0 /* AlectroenasMadagascariensis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FE421CB1764005B75D0 /* AlectroenasMadagascariensis.swift */; };
+		32AD7FE721CB19FB005B75D0 /* PigeonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FE621CB19FB005B75D0 /* PigeonProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +67,12 @@
 		32AD7FD221CAA4FA005B75D0 /* EncryptionKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptionKey.swift; sourceTree = "<group>"; };
 		32AD7FD421CAAB50005B75D0 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		32AD7FD721CAAE63005B75D0 /* QRCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QRCode.framework; path = Carthage/Build/iOS/QRCode.framework; sourceTree = "<group>"; };
+		32AD7FD921CB00CD005B75D0 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		32AD7FDB21CB0E83005B75D0 /* Signed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signed.swift; sourceTree = "<group>"; };
+		32AD7FDD21CB0F76005B75D0 /* Encrypted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encrypted.swift; sourceTree = "<group>"; };
+		32AD7FE121CB10FF005B75D0 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
+		32AD7FE421CB1764005B75D0 /* AlectroenasMadagascariensis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlectroenasMadagascariensis.swift; sourceTree = "<group>"; };
+		32AD7FE621CB19FB005B75D0 /* PigeonProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PigeonProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,13 +114,13 @@
 			children = (
 				32AD7FD621CAAB5D005B75D0 /* Services */,
 				32AD7FA721CA14B7005B75D0 /* Model */,
-				32AD7FBF21CA2940005B75D0 /* Extensions */,
+				32AD7FBF21CA2940005B75D0 /* Security */,
 				32AD7F9421CA0174005B75D0 /* AppDelegate.swift */,
 				32AD7F9621CA0174005B75D0 /* ViewController.swift */,
 				32AD7F9821CA0174005B75D0 /* Main.storyboard */,
-				32AD7F9B21CA0176005B75D0 /* Assets.xcassets */,
 				32AD7F9D21CA0176005B75D0 /* LaunchScreen.storyboard */,
 				32AD7FA021CA0176005B75D0 /* Info.plist */,
+				32AD7F9B21CA0176005B75D0 /* Assets.xcassets */,
 			);
 			path = Pigeon;
 			sourceTree = "<group>";
@@ -117,8 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				32AD7FA821CA14C0005B75D0 /* Token.swift */,
-				32AD7FD021CAA424005B75D0 /* VerificationKey.swift */,
-				32AD7FD221CAA4FA005B75D0 /* EncryptionKey.swift */,
+				32AD7FD921CB00CD005B75D0 /* Profile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -137,21 +148,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		32AD7FBF21CA2940005B75D0 /* Extensions */ = {
+		32AD7FBF21CA2940005B75D0 /* Security */ = {
 			isa = PBXGroup;
 			children = (
 				32AD7FC021CA2952005B75D0 /* Data+Security.swift */,
+				32AD7FD021CAA424005B75D0 /* VerificationKey.swift */,
+				32AD7FD221CAA4FA005B75D0 /* EncryptionKey.swift */,
+				32AD7FE121CB10FF005B75D0 /* KeyPair.swift */,
+				32AD7FDB21CB0E83005B75D0 /* Signed.swift */,
+				32AD7FDD21CB0F76005B75D0 /* Encrypted.swift */,
 			);
-			path = Extensions;
+			path = Security;
 			sourceTree = "<group>";
 		};
 		32AD7FD621CAAB5D005B75D0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				32AD7FC421CA30F8005B75D0 /* Networking.swift */,
+				32AD7FE321CB1750005B75D0 /* Networking */,
 				32AD7FD421CAAB50005B75D0 /* Storage.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		32AD7FE321CB1750005B75D0 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				32AD7FE821CB1A07005B75D0 /* Protocols */,
+				32AD7FC421CA30F8005B75D0 /* Networking.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		32AD7FE821CB1A07005B75D0 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				32AD7FE621CB19FB005B75D0 /* PigeonProtocol.swift */,
+				32AD7FE421CB1764005B75D0 /* AlectroenasMadagascariensis.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,11 +295,17 @@
 			files = (
 				32AD7FD121CAA424005B75D0 /* VerificationKey.swift in Sources */,
 				32AD7FC121CA2952005B75D0 /* Data+Security.swift in Sources */,
+				32AD7FE221CB10FF005B75D0 /* KeyPair.swift in Sources */,
 				32AD7FD321CAA4FA005B75D0 /* EncryptionKey.swift in Sources */,
 				32AD7FA921CA14C0005B75D0 /* Token.swift in Sources */,
+				32AD7FDE21CB0F77005B75D0 /* Encrypted.swift in Sources */,
 				32AD7FC521CA30F8005B75D0 /* Networking.swift in Sources */,
 				32AD7FD521CAAB50005B75D0 /* Storage.swift in Sources */,
 				32AD7F9721CA0174005B75D0 /* ViewController.swift in Sources */,
+				32AD7FE521CB1764005B75D0 /* AlectroenasMadagascariensis.swift in Sources */,
+				32AD7FDA21CB00CD005B75D0 /* Profile.swift in Sources */,
+				32AD7FE721CB19FB005B75D0 /* PigeonProtocol.swift in Sources */,
+				32AD7FDC21CB0E83005B75D0 /* Signed.swift in Sources */,
 				32AD7F9521CA0174005B75D0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

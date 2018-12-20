@@ -42,6 +42,7 @@ struct VerificationKey: Codable {
         return secKey
     }
 
+    /// Renders the verification key as a QRCode, which can be displayed for users to manually transfer to each other
     func render() throws -> QRCode {
         let data = try JSONEncoder().encode(self)
         return QRCode(data)
