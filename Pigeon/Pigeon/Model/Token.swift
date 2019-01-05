@@ -14,7 +14,7 @@ import Security
 ///
 /// On it's own, it provides no security/authenticity guarantees. It is simply a very long and hard to reproduce
 /// identifier.
-struct Token: Codable, Equatable, SecureStorable {
+struct Token: Codable, Equatable, Hashable, SecureStorable {
     static let storageKey: String = "IdentityToken"
     private static let length = 384
 

@@ -8,14 +8,18 @@
 
 import Foundation
 
+private struct Signable<T: Codable>: Codable, Serializable, Deserializable {
+    let d: T
+}
+
 struct SigningError: Error { let error: CFError }
 struct VerificationError: Error { let error: CFError }
 
-/// Signed is just a wrapper around some data with an associated digital signature. The data cannot be until its
+/// Signed is just a wrapper around some data with an associated digital signature. The data cannot be used until its
 /// signature is verified
-struct Signed<T: Codable>: Codable {
-    init(item: T) throws {
-        let data = try JSONEncoder().encode(item)
+struct Signed<T: Codable>: Codable, Serializable, Deserializable {
+    init(_ item: T) throws {
+        let data = try JSONEncoder().encode(Signable(d: item))
         var error : Unmanaged<CFError>?
         let result = SecKeyCreateSignature(
             KeyPair.signing.privateKey,
@@ -36,7 +40,7 @@ struct Signed<T: Codable>: Codable {
     /// Verifies a signature on some data given the signer's public VerificationKey, returning the data on success only
     /// if the signature was valid using the provided key
     func verify(using verificationKey: VerificationKey) throws -> T {
-        let data = try JSONEncoder().encode(item)
+        let data = try JSONEncoder().encode(Signable(d: item))
         var error : Unmanaged<CFError>?
         let valid = SecKeyVerifySignature(
             try verificationKey.secKey(),

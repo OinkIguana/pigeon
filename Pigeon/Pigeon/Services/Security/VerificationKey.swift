@@ -12,17 +12,26 @@ import QRCode
 
 /// A `VerificationKey` encapsulates another user's public verification key. It is expected that these are transmitted
 /// manually by users, effictively adding them to their "friends list"
-struct VerificationKey: Codable {
-    private let token: Token
-    private let verificationKey: String
+struct VerificationKey: Codable, Equatable {
+    init(from decoder: Decoder) throws {
+        verificationKey = try decoder.singleValueContainer().decode(Data.self)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(verificationKey)
+    }
+
+    static let mine = try! VerificationKey(from: KeyPair.signing.publicKey)
+
+    private let verificationKey: Data
 
     init(from secKey: SecKey) throws {
-        token = try Token()
         var error: Unmanaged<CFError>?
         guard let data = SecKeyCopyExternalRepresentation(secKey, &error) else {
             throw error!.takeRetainedValue() as Error
         }
-        verificationKey = (data as Data).base64EncodedString()
+        verificationKey = data as Data
     }
 
     func secKey() throws -> SecKey {
@@ -33,7 +42,7 @@ struct VerificationKey: Codable {
         ]
         var error : Unmanaged<CFError>?
         guard let secKey = SecKeyCreateWithData(
-            Data(base64Encoded: verificationKey)! as CFData,
+            verificationKey as CFData,
             options as CFDictionary,
             &error
         ) else {
@@ -42,7 +51,11 @@ struct VerificationKey: Codable {
         return secKey
     }
 
-    /// Renders the verification key as a QRCode, which can be displayed for users to manually transfer to each other
+    /// Renders the verification key as a QRCode, which can be displayed for users to manually transfer to each other.
+    /// This will be the primary method of trusted key-sharing.
+    ///
+    /// Be sure to document well to the user only to scan *trusted* QR codes, directly from the phone they are expecting
+    /// to scan from. Do not print or scan printed QR codes, as they are more likely to be malicious.
     func render() throws -> QRCode {
         let data = try JSONEncoder().encode(self)
         return QRCode(data)

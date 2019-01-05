@@ -30,6 +30,10 @@
 		32AD7FE221CB10FF005B75D0 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FE121CB10FF005B75D0 /* KeyPair.swift */; };
 		32AD7FE521CB1764005B75D0 /* AlectroenasMadagascariensis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FE421CB1764005B75D0 /* AlectroenasMadagascariensis.swift */; };
 		32AD7FE721CB19FB005B75D0 /* PigeonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FE621CB19FB005B75D0 /* PigeonProtocol.swift */; };
+		32AD7FEC21CB6D1F005B75D0 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FEB21CB6D1F005B75D0 /* KeyManager.swift */; };
+		32AD7FEE21CBF06E005B75D0 /* Compressed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FED21CBF06E005B75D0 /* Compressed.swift */; };
+		32AD7FF021CBF24B005B75D0 /* Gzip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AD7FEF21CBF24B005B75D0 /* Gzip.framework */; };
+		32AD7FF321CC578D005B75D0 /* Serializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FF221CC578D005B75D0 /* Serializer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +77,10 @@
 		32AD7FE121CB10FF005B75D0 /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		32AD7FE421CB1764005B75D0 /* AlectroenasMadagascariensis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlectroenasMadagascariensis.swift; sourceTree = "<group>"; };
 		32AD7FE621CB19FB005B75D0 /* PigeonProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PigeonProtocol.swift; sourceTree = "<group>"; };
+		32AD7FEB21CB6D1F005B75D0 /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
+		32AD7FED21CBF06E005B75D0 /* Compressed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compressed.swift; sourceTree = "<group>"; };
+		32AD7FEF21CBF24B005B75D0 /* Gzip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gzip.framework; path = Carthage/Build/iOS/Gzip.framework; sourceTree = "<group>"; };
+		32AD7FF221CC578D005B75D0 /* Serializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serializer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +93,7 @@
 				32AD7FC921CA98A1005B75D0 /* RxCocoa.framework in Frameworks */,
 				32AD7FCB21CA98A9005B75D0 /* RxSwift.framework in Frameworks */,
 				32AD7FD821CAAE63005B75D0 /* QRCode.framework in Frameworks */,
+				32AD7FF021CBF24B005B75D0 /* Gzip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,9 +121,9 @@
 		32AD7F9321CA0174005B75D0 /* Pigeon */ = {
 			isa = PBXGroup;
 			children = (
+				32AD7FF621D2B4BC005B75D0 /* Serializations */,
 				32AD7FD621CAAB5D005B75D0 /* Services */,
 				32AD7FA721CA14B7005B75D0 /* Model */,
-				32AD7FBF21CA2940005B75D0 /* Security */,
 				32AD7F9421CA0174005B75D0 /* AppDelegate.swift */,
 				32AD7F9621CA0174005B75D0 /* ViewController.swift */,
 				32AD7F9821CA0174005B75D0 /* Main.storyboard */,
@@ -137,6 +146,7 @@
 		32AD7FBC21CA2441005B75D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				32AD7FEF21CBF24B005B75D0 /* Gzip.framework */,
 				32AD7FD721CAAE63005B75D0 /* QRCode.framework */,
 				32AD7FCC21CA9F87005B75D0 /* CryptoSwift.framework */,
 				32AD7FCA21CA98A9005B75D0 /* RxSwift.framework */,
@@ -152,9 +162,10 @@
 			isa = PBXGroup;
 			children = (
 				32AD7FC021CA2952005B75D0 /* Data+Security.swift */,
+				32AD7FEB21CB6D1F005B75D0 /* KeyManager.swift */,
+				32AD7FE121CB10FF005B75D0 /* KeyPair.swift */,
 				32AD7FD021CAA424005B75D0 /* VerificationKey.swift */,
 				32AD7FD221CAA4FA005B75D0 /* EncryptionKey.swift */,
-				32AD7FE121CB10FF005B75D0 /* KeyPair.swift */,
 				32AD7FDB21CB0E83005B75D0 /* Signed.swift */,
 				32AD7FDD21CB0F76005B75D0 /* Encrypted.swift */,
 			);
@@ -164,8 +175,10 @@
 		32AD7FD621CAAB5D005B75D0 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				32AD7FBF21CA2940005B75D0 /* Security */,
 				32AD7FE321CB1750005B75D0 /* Networking */,
 				32AD7FD421CAAB50005B75D0 /* Storage.swift */,
+				32AD7FED21CBF06E005B75D0 /* Compressed.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -186,6 +199,14 @@
 				32AD7FE421CB1764005B75D0 /* AlectroenasMadagascariensis.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		32AD7FF621D2B4BC005B75D0 /* Serializations */ = {
+			isa = PBXGroup;
+			children = (
+				32AD7FF221CC578D005B75D0 /* Serializer.swift */,
+			);
+			path = Serializations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +292,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/QRCode.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Gzip.framework",
 			);
 			name = "Copy Carthage Frameworks";
 			outputFileListPaths = (
@@ -281,6 +303,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/QRCode.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Gzip.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -293,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32AD7FEE21CBF06E005B75D0 /* Compressed.swift in Sources */,
 				32AD7FD121CAA424005B75D0 /* VerificationKey.swift in Sources */,
 				32AD7FC121CA2952005B75D0 /* Data+Security.swift in Sources */,
 				32AD7FE221CB10FF005B75D0 /* KeyPair.swift in Sources */,
@@ -304,8 +328,10 @@
 				32AD7F9721CA0174005B75D0 /* ViewController.swift in Sources */,
 				32AD7FE521CB1764005B75D0 /* AlectroenasMadagascariensis.swift in Sources */,
 				32AD7FDA21CB00CD005B75D0 /* Profile.swift in Sources */,
+				32AD7FEC21CB6D1F005B75D0 /* KeyManager.swift in Sources */,
 				32AD7FE721CB19FB005B75D0 /* PigeonProtocol.swift in Sources */,
 				32AD7FDC21CB0E83005B75D0 /* Signed.swift in Sources */,
+				32AD7FF321CC578D005B75D0 /* Serializer.swift in Sources */,
 				32AD7F9521CA0174005B75D0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

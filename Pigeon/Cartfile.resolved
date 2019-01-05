@@ -1,3 +1,4 @@
+github "1024jp/GzipSwift" "4.0.4"
 github "ReactiveX/RxSwift" "4.4.0"
 github "aschuch/QRCode" "2.0"
 github "granoff/Strongbox" "0.5.1"

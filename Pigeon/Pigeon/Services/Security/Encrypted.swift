@@ -8,14 +8,27 @@
 
 import Foundation
 
+private struct Encryptable<T: Codable>: Codable, Serializable, Deserializable {
+    let d: T
+}
+
 struct EncryptionError: Error { let error: CFError }
 struct DecryptionError: Error { let error: CFError }
 
 /// Encrypted wraps the raw encrypted data to indicate that it has been encrypted and must be decrypted before
 /// meaningful usage
-struct Encrypted<T: Codable>: Codable {
-    init(item: T, using encryptionKey: EncryptionKey) throws {
-        let plaintext = try JSONEncoder().encode(item)
+struct Encrypted<T: Codable>: Codable, Serializable, Deserializable {
+//    init(from decoder: Decoder) throws {
+//        ciphertext = try decoder.singleValueContainer().decode(Data.self)
+//    }
+//
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.singleValueContainer()
+//        try container.encode(ciphertext)
+//    }
+
+    init(_ item: T, using encryptionKey: EncryptionKey) throws {
+        let plaintext = try JSONEncoder().encode(Encryptable(d: item))
         var error: Unmanaged<CFError>?
         let result = SecKeyCreateEncryptedData(
             try encryptionKey.secKey(),
@@ -43,6 +56,6 @@ struct Encrypted<T: Codable>: Codable {
         guard let plaintext = result else {
             throw DecryptionError(error: error!.takeRetainedValue())
         }
-        return try JSONDecoder().decode(T.self, from: plaintext as Data)
+        return try JSONDecoder().decode(Encryptable<T>.self, from: plaintext as Data).d
     }
 }

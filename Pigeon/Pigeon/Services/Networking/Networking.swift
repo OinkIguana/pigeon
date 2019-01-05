@@ -10,9 +10,9 @@ import MultipeerConnectivity
 
 /// Base networking manager, which manipulates the connection protocols at the "transport layer"-ish thing
 enum Networking {
-    static private let serviceName = "PigeonService"
-    static fileprivate let protocolVersionKey = "species"
-    static private let peerID = MCPeerID()
+    static private let serviceName: String = "pigeon"
+    static fileprivate let protocolVersionKey: String = "PigeonSpecies"
+    static private let peerID = MCPeerID(displayName: "iPhone")
 
     static private let browserDelegate = BrowserDelegate(peerID: peerID)
     static private let advertiserDelegate = AdvertiserDelegate(peerID: peerID)
@@ -20,7 +20,7 @@ enum Networking {
     static private let advertiser: MCNearbyServiceAdvertiser = {
         let advertiser = MCNearbyServiceAdvertiser(
             peer: peerID,
-            discoveryInfo: [Networking.protocolVersionKey: ProtocolVersion.alectroenasMadagascariensis.rawValue],
+            discoveryInfo: [Networking.protocolVersionKey: ProtocolVersion.current.rawValue],
             serviceType: Networking.serviceName
         )
         advertiser.delegate = advertiserDelegate
@@ -28,13 +28,15 @@ enum Networking {
     }()
 
     static private let browser: MCNearbyServiceBrowser = {
-        let browser = MCNearbyServiceBrowser(
-            peer: peerID,
-            serviceType: Networking.serviceName
-        )
+        let browser = MCNearbyServiceBrowser(peer: peerID, serviceType: Networking.serviceName)
         browser.delegate = browserDelegate
         return browser
     }()
+
+    static func start() {
+        advertiser.startAdvertisingPeer()
+        browser.startBrowsingForPeers()
+    }
 }
 
 private class AdvertiserDelegate: NSObject, MCNearbyServiceAdvertiserDelegate {
@@ -55,9 +57,12 @@ private class AdvertiserDelegate: NSObject, MCNearbyServiceAdvertiserDelegate {
             .flatMap { String(data: $0, encoding: .utf8) }
             .flatMap { ProtocolVersion(rawValue: $0) }
 
-        guard let protocolVersion = requestedProtocol else { return }
-        let session = MCSession(peer: self.peerID)
-        session.delegate = protocolVersion.delegate
+        guard let protocolVersion = requestedProtocol else {
+            invitationHandler(false, nil)
+            return
+        }
+
+        let session = protocolVersion.delegate.createSession(myID: self.peerID, with: peerID)
 
         invitationHandler(true, session)
     }
@@ -72,20 +77,20 @@ private class BrowserDelegate: NSObject, MCNearbyServiceBrowserDelegate {
     let peerID: MCPeerID
 
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        let protocolVersion = info?[Networking.protocolVersionKey]?
-            .data(using: .utf8)
-            .flatMap { try? JSONDecoder().decode(ProtocolVersion.self, from: $0) }
+        let protocolVersion = info?[Networking.protocolVersionKey]
+            .flatMap { ProtocolVersion(rawValue: $0) }
             .map { min($0, ProtocolVersion.current) }
             ?? .current
 
-        let session = MCSession(peer: self.peerID)
-        session.delegate = protocolVersion.delegate
+        let delegate = protocolVersion.delegate
+        if delegate.connectedTo(peer: peerID) { return } // there's already a connection here
+        let session = delegate.createSession(myID: self.peerID, with: peerID)
 
         browser.invitePeer(
             peerID,
             to: session,
             withContext: protocolVersion.rawValue.data(using: .utf8)!,
-            timeout: 1
+            timeout: 30
         )
     }
 
