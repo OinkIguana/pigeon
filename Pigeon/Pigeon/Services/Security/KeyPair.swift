@@ -14,13 +14,13 @@ struct KeyGenerationError: Error {}
 struct KeySavingError: Error {}
 
 struct KeyPair {
+    private static let context = LAContext()
+
     static let encryption = try! KeyPair(name: "pigeon.encryption")
     static let signing = try! KeyPair(name: "pigeon.signing")
 
     private init(name privateLabel: String) throws {
         let publicLabel = "\(privateLabel).pub"
-
-        let context = LAContext()
 
         // attempt to retrieve existing keys
         let getPublicKey: [String: Any] = [
@@ -35,7 +35,7 @@ struct KeyPair {
             kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
             kSecAttrLabel as String: privateLabel,
             kSecReturnRef as String: true,
-            kSecUseAuthenticationContext as String: context,
+            kSecUseAuthenticationContext as String: KeyPair.context,
         ]
 
         var rawPublic: CFTypeRef?
@@ -77,7 +77,7 @@ struct KeyPair {
             kSecAttrLabel as String: privateLabel,
             kSecAttrIsPermanent as String: true,
             kSecUseAuthenticationUI as String: kSecUseAuthenticationUIAllow,
-            kSecUseAuthenticationContext as String: context,
+            kSecUseAuthenticationContext as String: KeyPair.context,
             kSecAttrAccessControl as String: privateAccessControl,
         ]
 

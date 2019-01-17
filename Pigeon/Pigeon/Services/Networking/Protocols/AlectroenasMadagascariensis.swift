@@ -20,7 +20,7 @@ private struct Challenge: Codable, Equatable {
 /// Everything transmitted is wrapped in this Packet type, which ensures encryption and validation of all data
 /// sent and received.
 private struct Packet: Codable, Serializable, Deserializable {
-    let sender = try! Token()
+    let sender = Token.mine
     let receiver: Token
     let data: Compressed<Signed<Encrypted<PigeonMessage>>>
 }

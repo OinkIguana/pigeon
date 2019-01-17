@@ -16,7 +16,7 @@ class DuplicateKeyError: Error {}
 /// is up to the receiver to verify any claims before trusting them
 struct Claims: Codable, Serializable, Deserializable {
     static let mine = Claims(
-        token: try! Token(),
+        token: Token.mine,
         encryptionKey: try! Signed(EncryptionKey.mine),
         verificationKey: VerificationKey.mine
     )
