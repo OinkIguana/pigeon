@@ -8,7 +8,8 @@
 
 /// A person's self-written biography, as shown on a profile
 struct Biography: Codable, Serializable, Deserializable, Component {
-    static let name: String = "Biography"
+  static let version: Int64 = 1
+  static let name: String = "Biography"
 
-    let body: String
+  let body: String
 }

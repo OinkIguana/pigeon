@@ -8,7 +8,8 @@
 
 /// A person's phone number
 struct PhoneNumber: Codable, Serializable, Deserializable, Component {
-    static let name: String = "PhoneNumber"
+  static let version: Int64 = 1
+  static let name: String = "PhoneNumber"
 
-    let number: String
+  let number: String
 }

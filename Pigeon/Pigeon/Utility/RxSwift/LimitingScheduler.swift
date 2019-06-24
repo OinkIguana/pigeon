@@ -10,29 +10,29 @@ import Foundation
 import RxSwift
 
 final class LimitingScheduler: ImmediateSchedulerType {
-    let period: TimeInterval
-    let queue: DispatchQueue
+  let period: TimeInterval
+  let queue: DispatchQueue
 
-    private var dispatchHistory: [DispatchTime] = []
+  private var dispatchHistory: [DispatchTime] = []
 
-    init(period: TimeInterval, queue: DispatchQueue = .main) {
-        self.period = period
-        self.queue = queue
+  init(period: TimeInterval, queue: DispatchQueue = .main) {
+    self.period = period
+    self.queue = queue
+  }
+
+  func schedule<StateType>(_ state: StateType, action: @escaping (StateType) -> Disposable) -> Disposable {
+    let cancel = SingleAssignmentDisposable()
+    queue.asyncAfter(deadline: nextDeadline()) {
+      guard !cancel.isDisposed else { return }
+      cancel.setDisposable(action(state))
     }
+    return cancel
+  }
 
-    func schedule<StateType>(_ state: StateType, action: @escaping (StateType) -> Disposable) -> Disposable {
-        let cancel = SingleAssignmentDisposable()
-        queue.asyncAfter(deadline: nextDeadline()) {
-            guard !cancel.isDisposed else { return }
-            cancel.setDisposable(action(state))
-        }
-        return cancel
-    }
-
-    private func nextDeadline() -> DispatchTime {
-        let lastEvent = dispatchHistory.last
-        let deadline = lastEvent.map { $0 + self.period } ?? .now()
-        dispatchHistory.append(deadline)
-        return deadline
-    }
+  private func nextDeadline() -> DispatchTime {
+    let lastEvent = dispatchHistory.last
+    let deadline = lastEvent.map { $0 + self.period } ?? .now()
+    dispatchHistory.append(deadline)
+    return deadline
+  }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIColor {
-    static let lightText = UIColor(named: "lightText")
-    static let darkText = UIColor(named: "darkText")
-    static let lightBackground = UIColor(named: "lightBackground")
+  static let lightText = UIColor(named: "lightText")
+  static let darkText = UIColor(named: "darkText")
+  static let lightBackground = UIColor(named: "lightBackground")
 }

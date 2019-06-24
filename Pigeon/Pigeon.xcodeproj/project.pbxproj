@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		323928F822C0472F00A78BA6 /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323928F722C0472F00A78BA6 /* QRCode.swift */; };
 		326B7DD721F025D700E8DF34 /* FullName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326B7DD621F025D700E8DF34 /* FullName.swift */; };
 		326B7DDA21F0271700E8DF34 /* Birthday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326B7DD921F0271700E8DF34 /* Birthday.swift */; };
 		326B7DDC21F0279800E8DF34 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326B7DDB21F0279800E8DF34 /* Month.swift */; };
@@ -36,7 +37,6 @@
 		32AD7FD121CAA424005B75D0 /* VerificationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FD021CAA424005B75D0 /* VerificationKey.swift */; };
 		32AD7FD321CAA4FA005B75D0 /* EncryptionKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FD221CAA4FA005B75D0 /* EncryptionKey.swift */; };
 		32AD7FD521CAAB50005B75D0 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FD421CAAB50005B75D0 /* Storage.swift */; };
-		32AD7FD821CAAE63005B75D0 /* QRCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32AD7FD721CAAE63005B75D0 /* QRCode.framework */; };
 		32AD7FDC21CB0E83005B75D0 /* Signed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FDB21CB0E83005B75D0 /* Signed.swift */; };
 		32AD7FDE21CB0F77005B75D0 /* Encrypted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FDD21CB0F76005B75D0 /* Encrypted.swift */; };
 		32AD7FE221CB10FF005B75D0 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AD7FE121CB10FF005B75D0 /* KeyPair.swift */; };
@@ -71,6 +71,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		323928F722C0472F00A78BA6 /* QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
 		326B7DD621F025D700E8DF34 /* FullName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullName.swift; sourceTree = "<group>"; };
 		326B7DD921F0271700E8DF34 /* Birthday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Birthday.swift; sourceTree = "<group>"; };
 		326B7DDB21F0279800E8DF34 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
@@ -135,7 +136,6 @@
 				32AD7FCD21CA9F87005B75D0 /* CryptoSwift.framework in Frameworks */,
 				32AD7FC921CA98A1005B75D0 /* RxCocoa.framework in Frameworks */,
 				32AD7FCB21CA98A9005B75D0 /* RxSwift.framework in Frameworks */,
-				32AD7FD821CAAE63005B75D0 /* QRCode.framework in Frameworks */,
 				32AD7FF021CBF24B005B75D0 /* Gzip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,6 +233,7 @@
 		32AD7FA721CA14B7005B75D0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				323928F722C0472F00A78BA6 /* QRCode.swift */,
 				32AD7FA821CA14C0005B75D0 /* Token.swift */,
 				326B7DDB21F0279800E8DF34 /* Month.swift */,
 			);
@@ -452,7 +453,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/CryptoSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/QRCode.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Gzip.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SQLite.framework",
 			);
@@ -464,7 +464,6 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/CryptoSwift.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/QRCode.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Gzip.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SQLite.framework",
 			);
@@ -487,6 +486,7 @@
 				32AD7FD121CAA424005B75D0 /* VerificationKey.swift in Sources */,
 				326B7DEE21F02EF700E8DF34 /* OnlineReference.swift in Sources */,
 				326B7DE321F02CB200E8DF34 /* Gender.swift in Sources */,
+				323928F822C0472F00A78BA6 /* QRCode.swift in Sources */,
 				326B7DF221F02F7900E8DF34 /* PhoneNumber.swift in Sources */,
 				326B7DE121F02BA700E8DF34 /* EntityType.swift in Sources */,
 				326B7DDF21F028B700E8DF34 /* Int.swift in Sources */,

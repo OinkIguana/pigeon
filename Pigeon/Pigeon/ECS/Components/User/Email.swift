@@ -8,7 +8,8 @@
 
 /// A person's email
 struct Email: Codable, Serializable, Deserializable, Component {
-    static let name: String = "Email"
+  static let version: Int64 = 1
+  static let name: String = "Email"
 
-    let email: String
+  let email: String
 }

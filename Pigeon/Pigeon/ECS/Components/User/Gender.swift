@@ -8,31 +8,32 @@
 
 /// A person's gender
 enum Gender: Codable, Serializable, Deserializable, Component {
-    static let name: String = "Gender"
+  static let version: Int64 = 1
+  static let name: String = "Gender"
 
-    case male
-    case female
-    case other(String)
+  case male
+  case female
+  case other(String)
 
-    var rawValue: String {
-        switch self {
-        case .male: return "male"
-        case .female: return "female"
-        case .other(let rawValue): return rawValue
-        }
+  var rawValue: String {
+    switch self {
+    case .male: return "male"
+    case .female: return "female"
+    case .other(let rawValue): return rawValue
     }
+  }
 
-    init(from decoder: Decoder) throws {
-        let type = try decoder.singleValueContainer().decode(String.self)
-        switch type {
-        case Gender.male.rawValue: self = .male
-        case Gender.female.rawValue: self = .female
-        default: self = .other(type)
-        }
+  init(from decoder: Decoder) throws {
+    let type = try decoder.singleValueContainer().decode(String.self)
+    switch type {
+    case Gender.male.rawValue: self = .male
+    case Gender.female.rawValue: self = .female
+    default: self = .other(type)
     }
+  }
 
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(rawValue)
-    }
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.singleValueContainer()
+    try container.encode(rawValue)
+  }
 }

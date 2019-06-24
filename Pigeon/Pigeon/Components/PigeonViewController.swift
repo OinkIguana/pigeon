@@ -11,5 +11,5 @@ import RxSwift
 
 /// Base class for view controllers
 class PigeonViewController : UIViewController {
-    let disposeBag = DisposeBag()
+  let disposeBag = DisposeBag()
 }

@@ -8,7 +8,8 @@
 
 /// The title of a post
 struct PostTitle: Codable, Serializable, Deserializable, Component {
-    static let name: String = "PostTitle"
+  static let version: Int64 = 1
+  static let name: String = "PostTitle"
 
-    let title: String
+  let title: String
 }

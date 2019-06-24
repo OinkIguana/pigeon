@@ -15,15 +15,15 @@ class DuplicateKeyError: Error {}
 /// Devices can issue `Claims`, in which they provide identity information which should be interpreted non-verified. It
 /// is up to the receiver to verify any claims before trusting them
 struct Claims: Codable, Serializable, Deserializable {
-    static let mine = Claims(
-        token: Token.mine,
-        encryptionKey: try! Signed(EncryptionKey.mine),
-        verificationKey: VerificationKey.mine
-    )
+  static let mine = Claims(
+    token: Token.mine,
+    encryptionKey: try! Signed(EncryptionKey.mine),
+    verificationKey: VerificationKey.mine
+  )
 
-    let token: Token
-    let encryptionKey: Signed<EncryptionKey>
-    let verificationKey: VerificationKey
+  let token: Token
+  let encryptionKey: Signed<EncryptionKey>
+  let verificationKey: VerificationKey
 }
 
 /// The KeyManager stores an Entry for each user (Token)
@@ -31,8 +31,8 @@ struct Claims: Codable, Serializable, Deserializable {
 /// The keys are tentative, until the user manually verifies the key by physically scanning the other user's QRCode
 /// to retrieve their key
 private enum Entry<T> {
-    case verified(T)
-    case tentative(T)
+  case verified(T)
+  case tentative(T)
 }
 
 /// Very naive key manager, tracking other users and their respective verification and encryption keys. Will eventually
@@ -45,47 +45,47 @@ private enum Entry<T> {
 /// In the case that there is ever an invalid entry, it means someone is a bad actor. It is not yet clear how to handle
 /// this case.
 enum KeyManager {
-    private static var verificationKeys: [Token: Entry<VerificationKey>] = [:]
-    private static var encryptionKeys: [Token: Entry<EncryptionKey>] = [:]
+  private static var verificationKeys: [Token: Entry<VerificationKey>] = [:]
+  private static var encryptionKeys: [Token: Entry<EncryptionKey>] = [:]
 
-    /// Process some claims by performing some basic checks, and then tentatively accepting the claimed information if
-    /// it is not detected to be fraud already
-    static func process(claims: Claims) throws {
-        switch verificationKeys[claims.token] {
-        case .some(.verified(let verificationKey)) where verificationKey != claims.verificationKey:
-            // immediately rejected, since we have already verified that this key is wrong
-            throw RejectedClaimsError()
-        case .some(.verified(let verificationKey)):
-            // tentatively accept the new encryptionKey
-            encryptionKeys[claims.token] = .tentative(try claims.encryptionKey.verify(using: verificationKey))
-        // TODO: what to do in the case of a non-matching tentative verificationKey? Someone is doing fraud somewhere
-        default:
-            // tentatively accept the claims
-            verificationKeys[claims.token] = .tentative(claims.verificationKey)
-        }
+  /// Process some claims by performing some basic checks, and then tentatively accepting the claimed information if
+  /// it is not detected to be fraud already
+  static func process(claims: Claims) throws {
+    switch verificationKeys[claims.token] {
+    case .some(.verified(let verificationKey)) where verificationKey != claims.verificationKey:
+      // immediately rejected, since we have already verified that this key is wrong
+      throw RejectedClaimsError()
+    case .some(.verified(let verificationKey)):
+      // tentatively accept the new encryptionKey
+      encryptionKeys[claims.token] = .tentative(try claims.encryptionKey.verify(using: verificationKey))
+    // TODO: what to do in the case of a non-matching tentative verificationKey? Someone is doing fraud somewhere
+    default:
+      // tentatively accept the claims
+      verificationKeys[claims.token] = .tentative(claims.verificationKey)
     }
+  }
 
-    static func insert(_ token: Token, encryptionKey: Signed<EncryptionKey>) throws {
-        switch verificationKeys[token] {
-        case .some(.verified(let verificationKey)):
-            encryptionKeys[token] = .verified(try encryptionKey.verify(using: verificationKey))
-        case .some(.tentative(let verificationKey)):
-            encryptionKeys[token] = .tentative(try encryptionKey.verify(using: verificationKey))
-        case .none:
-            throw NotVerifiedError()
-        }
+  static func insert(_ token: Token, encryptionKey: Signed<EncryptionKey>) throws {
+    switch verificationKeys[token] {
+    case .some(.verified(let verificationKey)):
+      encryptionKeys[token] = .verified(try encryptionKey.verify(using: verificationKey))
+    case .some(.tentative(let verificationKey)):
+      encryptionKeys[token] = .tentative(try encryptionKey.verify(using: verificationKey))
+    case .none:
+      throw NotVerifiedError()
     }
+  }
 
-    static func getVerifiedKeys(for token: Token) -> (verification: VerificationKey?, encryption: EncryptionKey?) {
-        switch (verificationKeys[token], encryptionKeys[token]) {
-        case let (.some(.verified(verification)), .some(.verified(encryption))):
-            return (verification: verification, encryption: encryption)
-        case let (.some(.verified(verification)), _):
-            return (verification: verification, encryption: nil)
-        case let (_, .some(.verified(encryption))):
-            return (verification: nil, encryption: encryption)
-        default:
-            return (verification: nil, encryption: nil)
-        }
+  static func getVerifiedKeys(for token: Token) -> (verification: VerificationKey?, encryption: EncryptionKey?) {
+    switch (verificationKeys[token], encryptionKeys[token]) {
+    case let (.some(.verified(verification)), .some(.verified(encryption))):
+      return (verification: verification, encryption: encryption)
+    case let (.some(.verified(verification)), _):
+      return (verification: verification, encryption: nil)
+    case let (_, .some(.verified(encryption))):
+      return (verification: nil, encryption: encryption)
+    default:
+      return (verification: nil, encryption: nil)
     }
+  }
 }

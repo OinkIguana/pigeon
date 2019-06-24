@@ -9,8 +9,8 @@
 import UIKit
 
 extension UIView {
-    func constrainable() -> Self {
-        translatesAutoresizingMaskIntoConstraints = false
-        return self
-    }
+  func constrainable() -> Self {
+    translatesAutoresizingMaskIntoConstraints = false
+    return self
+  }
 }

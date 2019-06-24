@@ -31,6 +31,8 @@ import Foundation
 /// *   do components a reference back to the owning entity?
 /// *   handle this externally to the component (in the DB)?
 protocol Component: Serializable, Deserializable {
-    /// The name of this component. Must be unique as it is used to identify the component in the storage
-    static var name: String { get }
+  /// The version of this component. May be used in future
+  static var version: Int64 { get }
+  /// The name of this component. Must be unique as it is used to identify the component in the storage
+  static var name: String { get }
 }

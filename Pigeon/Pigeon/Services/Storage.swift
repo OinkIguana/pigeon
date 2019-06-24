@@ -9,25 +9,25 @@
 import Strongbox
 
 protocol SecureStorable: Codable {
-    static var storageKey: String { get }
+  static var storageKey: String { get }
 }
 
 class StorageFailedError: Error {}
 
 enum Storage {
-    private static let keychain = Strongbox()
+  private static let keychain = Strongbox()
 
-    static func store<Item: SecureStorable>(_ item: Item) throws {
-        let data = try JSONEncoder().encode(item)
-        guard keychain.archive(data as NSData, key: Item.storageKey) else {
-            throw StorageFailedError()
-        }
+  static func store<Item: SecureStorable>(_ item: Item) throws {
+    let data = try JSONEncoder().encode(item)
+    guard keychain.archive(data as NSData, key: Item.storageKey) else {
+      throw StorageFailedError()
     }
+  }
 
-    static func retrieve<Item: SecureStorable>() throws -> Item? {
-        guard let data = keychain.unarchive(objectForKey: Item.storageKey) as? NSData else {
-            return nil
-        }
-        return try JSONDecoder().decode(Item.self, from: data as Data)
+  static func retrieve<Item: SecureStorable>() throws -> Item? {
+    guard let data = keychain.unarchive(objectForKey: Item.storageKey) as? NSData else {
+      return nil
     }
+    return try JSONDecoder().decode(Item.self, from: data as Data)
+  }
 }

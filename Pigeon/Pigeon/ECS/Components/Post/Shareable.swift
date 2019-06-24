@@ -8,5 +8,6 @@
 
 /// Marks an piece of content as shareable
 struct Shareable: Codable, Serializable, Deserializable, Component {
-    static let name: String = "Shareable"
+  static let version: Int64 = 1
+  static let name: String = "Shareable"
 }

@@ -18,19 +18,19 @@ struct PigeonMessage: Codable {}
 /// The Pigeon Protocol aims to be an application layer protocol. As it may undergo revisions, it is important to ensure
 /// that the implementations of each revision remain compatible.
 protocol PigeonProtocol: MCSessionDelegate {
-    /// The data serializer for this protocol
-    static var serializer: Serializer { get }
-    /// The data deserializer for this protocol
-    static var deserializer: Deserializer { get }
-    /// The protocol version identifier
-    static var version: ProtocolVersion { get }
+  /// The data serializer for this protocol
+  static var serializer: Serializer { get }
+  /// The data deserializer for this protocol
+  static var deserializer: Deserializer { get }
+  /// The protocol version identifier
+  static var version: ProtocolVersion { get }
 
-    /// Creates a session object that is compatible with this protocol version. It is expected that the delegate is
-    /// already attached to the returned session.
-    func createSession(myID: MCPeerID, with peer: MCPeerID) -> MCSession
+  /// Creates a session object that is compatible with this protocol version. It is expected that the delegate is
+  /// already attached to the returned session.
+  func createSession(myID: MCPeerID, with peer: MCPeerID) -> MCSession
 
-    /// Checks if there is currently a connection to a peer with this ID
-    func connectedTo(peer: MCPeerID) -> Bool
+  /// Checks if there is currently a connection to a peer with this ID
+  func connectedTo(peer: MCPeerID) -> Bool
 }
 
 /// Protocol version identifiers. Until they run out (they probably won't), we can take names from the [list of pigeon
@@ -38,19 +38,19 @@ protocol PigeonProtocol: MCSessionDelegate {
 ///
 /// Note that they must be taken alphabetically so that the ordering remains consistent
 enum ProtocolVersion: String, Comparable, Equatable, Codable, CaseIterable {
-    case alectroenasMadagascariensis = "Alectroenas Madagascariensis"
+  case alectroenasMadagascariensis = "Alectroenas Madagascariensis"
 
-    /// The most recent protocol version
-    static var current: ProtocolVersion { return .alectroenasMadagascariensis }
+  /// The most recent protocol version
+  static var current: ProtocolVersion { return .alectroenasMadagascariensis }
 
-    /// Creates a MCSessionDelegate that implements this version of the protocol. Sadly, this is a very manual deduction
-    var delegate: PigeonProtocol {
-        switch self {
-        case .alectroenasMadagascariensis: return AlectroenasMadagascariensis.instance
-        }
+  /// Creates a MCSessionDelegate that implements this version of the protocol. Sadly, this is a very manual deduction
+  var delegate: PigeonProtocol {
+    switch self {
+    case .alectroenasMadagascariensis: return AlectroenasMadagascariensis.instance
     }
+  }
 
-    static func < (lhs: ProtocolVersion, rhs: ProtocolVersion) -> Bool {
-        return lhs.rawValue < rhs.rawValue
-    }
+  static func < (lhs: ProtocolVersion, rhs: ProtocolVersion) -> Bool {
+    return lhs.rawValue < rhs.rawValue
+  }
 }

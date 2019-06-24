@@ -10,7 +10,8 @@ import Foundation
 
 /// A reference to where this piece of content is available on the Internet
 struct OnlineReference: Codable, Serializable, Deserializable, Component {
-    static let name: String = "OnlineReference"
+  static let version: Int64 = 1
+  static let name: String = "OnlineReference"
 
-    let url: URL
+  let url: URL
 }

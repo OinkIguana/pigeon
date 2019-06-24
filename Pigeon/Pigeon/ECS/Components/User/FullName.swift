@@ -10,15 +10,16 @@ import Foundation
 
 /// A person's full name
 struct FullName: Codable, Serializable, Deserializable, Component {
-    static let name: String = "FullName"
+  static let version: Int64 = 1
+  static let name: String = "FullName"
 
-    let fullName: String
+  let fullName: String
 
-    var firstName: String {
-        return String(fullName.split(separator: " ", omittingEmptySubsequences: true).first!)
-    }
+  var firstName: String {
+    return String(fullName.split(separator: " ", omittingEmptySubsequences: true).first!)
+  }
 
-    var lastName: String {
-        return String(fullName.split(separator: " ", omittingEmptySubsequences: true).last!)
-    }
+  var lastName: String {
+    return String(fullName.split(separator: " ", omittingEmptySubsequences: true).last!)
+  }
 }

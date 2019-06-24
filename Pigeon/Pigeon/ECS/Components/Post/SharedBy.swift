@@ -8,7 +8,8 @@
 
 /// A reference to the user who owns this piece of content
 struct SharedBy: Codable, Serializable, Deserializable, Component {
-    static let name: String = "SharedBy"
+  static let version: Int64 = 1
+  static let name: String = "SharedBy"
 
-    let token: Token
+  let token: Token
 }

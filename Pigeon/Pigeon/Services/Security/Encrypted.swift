@@ -9,7 +9,7 @@
 import Foundation
 
 private struct Encryptable<T: Codable>: Codable, Serializable, Deserializable {
-    let d: T
+  let d: T
 }
 
 struct EncryptionError: Error { let error: CFError }
@@ -27,35 +27,35 @@ struct Encrypted<T: Codable>: Codable, Serializable, Deserializable {
 //        try container.encode(ciphertext)
 //    }
 
-    init(_ item: T, using encryptionKey: EncryptionKey) throws {
-        let plaintext = try JSONEncoder().encode(Encryptable(d: item))
-        var error: Unmanaged<CFError>?
-        let result = SecKeyCreateEncryptedData(
-            try encryptionKey.secKey(),
-            .eciesEncryptionStandardX963SHA512AESGCM,
-            plaintext as CFData,
-            &error
-        )
-        guard let ciphertext = result else {
-            throw EncryptionError(error: error!.takeRetainedValue())
-        }
-        self.ciphertext = ciphertext as Data
+  init(_ item: T, using encryptionKey: EncryptionKey) throws {
+    let plaintext = try JSONEncoder().encode(Encryptable(d: item))
+    var error: Unmanaged<CFError>?
+    let result = SecKeyCreateEncryptedData(
+      try encryptionKey.secKey(),
+      .eciesEncryptionStandardX963SHA512AESGCM,
+      plaintext as CFData,
+      &error
+    )
+    guard let ciphertext = result else {
+      throw EncryptionError(error: error!.takeRetainedValue())
     }
+    self.ciphertext = ciphertext as Data
+  }
 
-    private let ciphertext: Data
+  private let ciphertext: Data
 
-    /// Attempts to decrypt some data using your own private decryption key
-    func decrypt() throws -> T {
-        var error: Unmanaged<CFError>?
-        let result = SecKeyCreateDecryptedData(
-            KeyPair.encryption.privateKey,
-            .eciesEncryptionStandardX963SHA512AESGCM,
-            ciphertext as CFData,
-            &error
-        )
-        guard let plaintext = result else {
-            throw DecryptionError(error: error!.takeRetainedValue())
-        }
-        return try JSONDecoder().decode(Encryptable<T>.self, from: plaintext as Data).d
+  /// Attempts to decrypt some data using your own private decryption key
+  func decrypt() throws -> T {
+    var error: Unmanaged<CFError>?
+    let result = SecKeyCreateDecryptedData(
+      KeyPair.encryption.privateKey,
+      .eciesEncryptionStandardX963SHA512AESGCM,
+      ciphertext as CFData,
+      &error
+    )
+    guard let plaintext = result else {
+      throw DecryptionError(error: error!.takeRetainedValue())
     }
+    return try JSONDecoder().decode(Encryptable<T>.self, from: plaintext as Data).d
+  }
 }

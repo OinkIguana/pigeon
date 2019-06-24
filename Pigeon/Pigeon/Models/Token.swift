@@ -15,32 +15,32 @@ import Security
 ///
 /// Tokens are also used to represent posts and other content shared by users.
 struct Token: Codable, Equatable, Hashable, SecureStorable {
-    static let storageKey: String = "IdentityToken"
-    private static let length = 384
+  static let storageKey: String = "IdentityToken"
+  private static let length = 384
 
-    /// Retrieves the current device's token
-    static let mine: Token = {
-        if let existing: Token = try! Storage.retrieve() {
-            return existing
-        } else {
-            let token = try! Token()
-            try! Storage.store(token)
-            return token
-        }
-    }()
-
-    init() throws {
-        token = try Data.secureRandom(bytes: Token.length).base64EncodedString()
+  /// Retrieves the current device's token
+  static let mine: Token = {
+    if let existing: Token = try! Storage.retrieve() {
+      return existing
+    } else {
+      let token = try! Token()
+      try! Storage.store(token)
+      return token
     }
+  }()
 
-    init(from decoder: Decoder) throws {
-        token = try decoder.singleValueContainer().decode(String.self)
-    }
+  init() throws {
+    token = try Data.secureRandom(bytes: Token.length).base64EncodedString()
+  }
 
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(token)
-    }
+  init(from decoder: Decoder) throws {
+    token = try decoder.singleValueContainer().decode(String.self)
+  }
 
-    private let token: String
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.singleValueContainer()
+    try container.encode(token)
+  }
+
+  private let token: String
 }
