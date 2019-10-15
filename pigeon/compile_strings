@@ -1,0 +1,47 @@
+#! /usr/bin/env io
+
+Container := Map clone
+
+Container childContainerAt := method(path,
+  if (hasKey (path)) then (
+    return at (path)
+  ) else (
+    child := Container clone
+    atPut (path, child)
+    return child
+  )
+)
+
+Container compile := method(
+  foreach (k, v,
+    depth := call evalArgAt (0) ifNilEval (0)
+    indent := " " repeated (depth)
+    if (v proto == Container) then (
+      "#{indent}enum #{k} {" interpolate println
+      v compile (depth + 2)
+      "#{indent}}" interpolate println
+    ) else (
+      "#{indent}static var #{k}: String { \"#{v}\".localized() }" interpolate println
+    )
+  )
+)
+
+Sequence classify := method(container,
+  original := call evalArgAt (1) ifNilEval (self)
+  if (containsSeq (".")) then (
+    parent := beforeSeq (".")
+    child := afterSeq (".")
+    child classify (container childContainerAt (parent), original)
+  ) else (
+    container atPut (self, original)
+  )
+)
+
+stringsFiles := Directory with ("pigeon/Assets/Localization/en.lproj") recursiveFilesOfTypes (List with ("strings")) 
+keys := stringsFiles map (readLines map (betweenSeq ("\"", "\""))) flatten
+
+root := Container clone
+l10n := root childContainerAt ("L10n")
+keys foreach (classify (l10n))
+
+root compile

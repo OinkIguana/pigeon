@@ -1,0 +1,6 @@
+"ok" = "Ok";
+"Auth.cancel" = "Cancel";
+"Auth.reason" = "Unlock";
+"Auth.Error.message" = "Invalid credentials";
+"Auth.Error.title" = "Could not unlock";
+"Error.title" = "Error";
