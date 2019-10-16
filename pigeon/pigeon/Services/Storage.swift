@@ -16,11 +16,19 @@ protocol StorageKey {
   static var key: String { get }
 }
 
+extension StorageKey {
+  static var key: String { String(describing: Self.self) }
+}
+
 // MARK: - Secure Storage Key
 
 protocol SecureStorageKey {
   associatedtype V: Codable
   static var key: String { get }
+}
+
+extension SecureStorageKey {
+  static var key: String { String(describing: Self.self) }
 }
 
 // MARK: - Storage

@@ -12,9 +12,12 @@ struct AuthenticationView: View {
   @EnvironmentObject private var authenticator: Authenticator
 
   var body: some View {
-    VStack {
-      Button(action: authenticator.requestAuthentication) {
-        Text(L10n.Auth.reason)
+    ZStack {
+      EffectView(blur: .systemMaterial)
+      VStack {
+        Button(action: authenticator.requestAuthentication) {
+          Text(L10n.Auth.reason)
+        }
       }
     }
   }

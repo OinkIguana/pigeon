@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3201D2E1235692EA0021797F /* EffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3201D2E0235692EA0021797F /* EffectView.swift */; };
+		3201D2E32356A8FF0021797F /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3201D2E22356A8FF0021797F /* Config.plist */; };
+		3201D2E52356A9320021797F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3201D2E42356A9320021797F /* Config.swift */; };
 		320EC2682352E71D00F04C77 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320EC2672352E71D00F04C77 /* L10n.swift */; };
 		3211BA612353A32D005964C4 /* Binding+Transforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3211BA602353A32D005964C4 /* Binding+Transforms.swift */; };
 		3211BA642353A9B1005964C4 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3211BA632353A9B1005964C4 /* AuthenticationViewController.swift */; };
@@ -26,6 +29,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3201D2E0235692EA0021797F /* EffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EffectView.swift; sourceTree = "<group>"; };
+		3201D2E22356A8FF0021797F /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		3201D2E42356A9320021797F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		320EC2672352E71D00F04C77 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		3211BA602353A32D005964C4 /* Binding+Transforms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Transforms.swift"; sourceTree = "<group>"; };
 		3211BA632353A9B1005964C4 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +64,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3201D2DE235692D20021797F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3201D2E0235692EA0021797F /* EffectView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3201D2DF235692D80021797F /* Contents */ = {
+			isa = PBXGroup;
+			children = (
+				32691A552352D538002A705C /* AuthenticationView.swift */,
+				32A531E3235186C700A8562E /* ContentView.swift */,
+			);
+			path = Contents;
+			sourceTree = "<group>";
+		};
 		320EC2662352E6CF00F04C77 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +134,7 @@
 			children = (
 				32691A462352C538002A705C /* Pigeon.entitlements */,
 				32A531ED235186C800A8562E /* Info.plist */,
+				3201D2E22356A8FF0021797F /* Config.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -126,8 +150,8 @@
 		32691A492352C5F7002A705C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				32A531E3235186C700A8562E /* ContentView.swift */,
-				32691A552352D538002A705C /* AuthenticationView.swift */,
+				3201D2DE235692D20021797F /* Components */,
+				3201D2DF235692D80021797F /* Contents */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,6 +170,7 @@
 			children = (
 				32691A4C2352CD4A002A705C /* Storage.swift */,
 				320EC2672352E71D00F04C77 /* L10n.swift */,
+				3201D2E42356A9320021797F /* Config.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -291,6 +316,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3201D2E32356A8FF0021797F /* Config.plist in Resources */,
 				32A531EC235186C800A8562E /* LaunchScreen.storyboard in Resources */,
 				32691A5F2352D843002A705C /* Localizable.strings in Resources */,
 				32A531E9235186C800A8562E /* Preview Assets.xcassets in Resources */,
@@ -329,8 +355,10 @@
 				320EC2682352E71D00F04C77 /* L10n.swift in Sources */,
 				3211BA6D23556D5B005964C4 /* UIViewController+Alerts.swift in Sources */,
 				32A531E0235186C700A8562E /* AppDelegate.swift in Sources */,
+				3201D2E1235692EA0021797F /* EffectView.swift in Sources */,
 				3211BA642353A9B1005964C4 /* AuthenticationViewController.swift in Sources */,
 				32691A4D2352CD4A002A705C /* Storage.swift in Sources */,
+				3201D2E52356A9320021797F /* Config.swift in Sources */,
 				3211BA612353A32D005964C4 /* Binding+Transforms.swift in Sources */,
 				32691A562352D538002A705C /* AuthenticationView.swift in Sources */,
 				32A531E2235186C700A8562E /* SceneDelegate.swift in Sources */,
