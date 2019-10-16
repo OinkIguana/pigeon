@@ -52,6 +52,7 @@ where AView: View, CView: View {
           self.authenticationModal = controller
         } else if authenticated, let modal = self.authenticationModal {
           modal.dismiss(animated: true)
+          self.authenticationModal = nil
         }
       }
       .store(in: &subscriptions)
@@ -62,19 +63,7 @@ where AView: View, CView: View {
 
 extension AuthenticationViewController: AuthenticatorDelegate {
   fileprivate func requestAuthentication() {
-    Companion.localAuthentication?.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: L10n.Auth.reason) { success, error in
-      Companion.authenticated.send(success)
-      if !success, let error = error as? LAError {
-        switch error.code {
-        // these errors should not be displayed to the user as an error
-        case .userCancel,
-             .userFallback,
-             .systemCancel: return
-        default: break
-        }
-      }
-      error.map { self.showAlert(error: $0) }
-    }
+    Companion.validate { error in self.showAlert(error: error) }
   }
 }
 
@@ -91,7 +80,7 @@ extension AuthenticationViewController {
 
 enum AuthenticationViewControllerCompanion {
   fileprivate static let authenticated = CurrentValueSubject<Bool, Never>(false)
-  fileprivate static let localAuthentication: LAContext? = {
+  private static let localAuthentication: LAContext? = {
     let context = LAContext()
     context.localizedCancelTitle = L10n.Auth.cancel
 
@@ -100,7 +89,24 @@ enum AuthenticationViewControllerCompanion {
     return context
   }()
 
+  fileprivate static func validate(onError errorHandler: @escaping (Error) -> Void) {
+    localAuthentication?.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: L10n.Auth.reason) { success, error in
+      authenticated.send(success)
+      if !success, let error = error as? LAError {
+        switch error.code {
+        // these errors should not be displayed to the user as an error
+        case .userCancel,
+             .userFallback,
+             .systemCancel: return
+        default: break
+        }
+      }
+      error.map(errorHandler)
+    }
+  }
+
   static func invalidate() {
+    localAuthentication?.invalidate()
     authenticated.send(false)
   }
 }

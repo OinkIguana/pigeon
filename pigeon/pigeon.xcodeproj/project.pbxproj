@@ -129,12 +129,19 @@
 			path = Binding;
 			sourceTree = "<group>";
 		};
+		32610590235743E70028FE83 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		32691A472352C5A1002A705C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				32691A462352C538002A705C /* Pigeon.entitlements */,
-				32A531ED235186C800A8562E /* Info.plist */,
 				3201D2E22356A8FF0021797F /* Config.plist */,
+				32A531ED235186C800A8562E /* Info.plist */,
+				32691A462352C538002A705C /* Pigeon.entitlements */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -214,6 +221,7 @@
 			children = (
 				32A531DE235186C700A8562E /* pigeon */,
 				32A531DD235186C700A8562E /* Products */,
+				32610590235743E70028FE83 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -244,8 +252,8 @@
 		32A531E7235186C800A8562E /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				32691A542352D0F5002A705C /* Development */,
 				32A531E5235186C800A8562E /* Assets.xcassets */,
+				32691A542352D0F5002A705C /* Development */,
 				320EC2662352E6CF00F04C77 /* Localization */,
 			);
 			path = Assets;
@@ -509,6 +517,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "pigeon/Supporting Files/Pigeon.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -535,6 +544,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "pigeon/Supporting Files/Pigeon.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
