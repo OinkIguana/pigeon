@@ -44,13 +44,13 @@ enum Storage {
   }
 
   static func store<K: StorageKey>(value: K.V, for key: K.Type) {
-    let json = try! JSONEncoder().encode(Box(v: value))
+    let json = try! JSONEncoder().encode(Container(v: value))
     UserDefaults.standard.set(json, forKey: K.key)
   }
 
   static func retrieve<K: StorageKey>(_ key: K.Type) -> K.V? {
     if let data = UserDefaults.standard.data(forKey: K.key) {
-      return (try? JSONDecoder().decode(Box<K.V>.self, from: data))?.v
+      return (try? JSONDecoder().decode(Container<K.V>.self, from: data))?.v
     } else {
       return nil
     }
@@ -67,13 +67,13 @@ enum Storage {
   }
 
   static func store<K: SecureStorageKey>(value: K.V, for key: K.Type) {
-    let json = try! JSONEncoder().encode(Box(v: value))
+    let json = try! JSONEncoder().encode(Container(v: value))
     valet.set(object: json, forKey: K.key)
   }
 
   static func retrieve<K: SecureStorageKey>(_ key: K.Type) -> K.V? {
     if let data = valet.object(forKey: K.key) {
-      return (try? JSONDecoder().decode(Box<K.V>.self, from: data))?.v
+      return (try? JSONDecoder().decode(Container<K.V>.self, from: data))?.v
     } else {
       return nil
     }

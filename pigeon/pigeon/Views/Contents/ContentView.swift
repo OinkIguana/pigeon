@@ -11,16 +11,11 @@ import SwiftUI
 struct ContentView: View {
   var body: some View {
     VStack {
-      Text("Hello World")
-      Text("Hello World")
-      Text("Hello World")
-      Text("Hello World")
-      Text("Hello World")
-      Text("Hello World")
-      Text("Hello World")
-      Text("Hello World")
-      Text("Hello World")
-      Text("Hello World")
+      HStack {
+        Text("Hello world").font(.title)
+        Spacer()
+      }.padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+      Spacer()
     }
   }
 }
